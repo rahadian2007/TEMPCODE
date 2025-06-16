@@ -1,30 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const SingleArtikel = ({ id }) => {
-  const [artikel, setArtikel] = useState(null); // awalnya null
+const SingleArticle = ({ id }) => {
+  const [artikel, setArtikel] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Log ID untuk memastikan ID valid
+    console.log("Ambil artikel ID:", id);
+
     axios
-      .get(`https://namaproject.strapiapp.com/api/artikels/${id}`)
+      .get(`https://best-charity-a852c78925c.strapiapp.com/api/articles/${id}`)
       .then((res) => {
-        setArtikel(res.data.data); // ambil bagian "data"
+        setArtikel(res.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.error("Gagal mengambil artikel:", err);
+        setError("Artikel tidak ditemukan.");
+        setLoading(false);
       });
   }, [id]);
 
-  // ✅ Cek apakah data sudah ada
-  if (!artikel) return <p>Loading...</p>;
+  if (loading) return <p>Memuat artikel...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (!artikel || !artikel.attributes) return <p>Artikel kosong.</p>;
 
-  // ✅ Akses atribut artikel
   return (
     <div>
       <h2>{artikel.attributes.judul}</h2>
-      <div dangerouslySetInnerHTML={{ __html: artikel.attributes.isi }} />
+      <div
+        dangerouslySetInnerHTML={{ __html: artikel.attributes.isi }}
+        style={{ marginTop: "1rem" }}
+      />
     </div>
   );
 };
 
-export default SingleArtikel;
+export default SingleArticle;
