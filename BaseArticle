@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const SingleArtikel = ({ id }) => {
-  const [artikel, setArtikel] = useState(null);
+  const [artikel, setArtikel] = useState(null); // awalnya null
 
   useEffect(() => {
-    axios.get(`https://namaproject.strapiapp.com/api/artikels/${id}`)
+    axios
+      .get(`https://namaproject.strapiapp.com/api/artikels/${id}`)
       .then((res) => {
-        setArtikel(res.data.data);
+        setArtikel(res.data.data); // ambil bagian "data"
       })
       .catch((err) => {
-        console.error("Gagal ambil artikel:", err);
+        console.error("Gagal mengambil artikel:", err);
       });
   }, [id]);
 
+  // ✅ Cek apakah data sudah ada
   if (!artikel) return <p>Loading...</p>;
 
+  // ✅ Akses atribut artikel
   return (
     <div>
       <h2>{artikel.attributes.judul}</h2>
