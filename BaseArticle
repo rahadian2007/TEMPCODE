@@ -1,0 +1,27 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const SingleArtikel = ({ id }) => {
+  const [artikel, setArtikel] = useState(null);
+
+  useEffect(() => {
+    axios.get(`https://namaproject.strapiapp.com/api/artikels/${id}`)
+      .then((res) => {
+        setArtikel(res.data.data);
+      })
+      .catch((err) => {
+        console.error("Gagal ambil artikel:", err);
+      });
+  }, [id]);
+
+  if (!artikel) return <p>Loading...</p>;
+
+  return (
+    <div>
+      <h2>{artikel.attributes.judul}</h2>
+      <div dangerouslySetInnerHTML={{ __html: artikel.attributes.isi }} />
+    </div>
+  );
+};
+
+export default SingleArtikel;
