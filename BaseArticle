@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const ArtikelDetail = () => {
-  const [artikel, setArtikel] = useState(null);
+function Article({ documentId }) {
+  const [article, setArticle] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://NAMA-STRAPI-APP.strapiapp.com/api/articles/6')
-      .then((res) => {
-        setArtikel(res.data.data);
-      })
-      .catch((err) => {
-        console.error('Gagal ambil artikel:', err);
-      });
-  }, []);
+    const fetchArticle = async () => {
+      try {
+        const res = await axios.get(`/article/${documentId}`);
+        console.log('Fetched data:', res.data);
+        setArticle(res.data); // atau res.data.article kalau struktur nested
+      } catch (error) {
+        console.error('Gagal mengambil artikel:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  if (!artikel) return <p>Loading...</p>;
+    if (documentId) {
+      fetchArticle();
+    }
+  }, [documentId]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (!article) return <p>Artikel tidak ditemukan.</p>;
 
   return (
     <div>
-      <h2>{artikel.attributes.judul}</h2>
-      <div dangerouslySetInnerHTML={{ __html: artikel.attributes.isi }} />
+      <h1>{article.title}</h1>
+      <p>{article.description}</p>
+      <div dangerouslySetInnerHTML={{ __html: article.content }} />
     </div>
   );
-};
-
-export default ArtikelDetail;
+}
