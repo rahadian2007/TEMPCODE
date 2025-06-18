@@ -1,36 +1,10 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+const renderRichText = (text) => {
+  return text
+    .split('\n\n')
+    .map((para, idx) => <p key={idx}>{para}</p>);
+};
 
-function Article({ documentId }) {
-  const [article, setArticle] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchArticle = async () => {
-      try {
-        const res = await axios.get(`/article/${documentId}`);
-        console.log('Fetched data:', res.data);
-        setArticle(res.data); // atau res.data.article kalau struktur nested
-      } catch (error) {
-        console.error('Gagal mengambil artikel:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (documentId) {
-      fetchArticle();
-    }
-  }, [documentId]);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (!article) return <p>Artikel tidak ditemukan.</p>;
-
-  return (
-    <div>
-      <h1>{article.title}</h1>
-      <p>{article.description}</p>
-      <div dangerouslySetInnerHTML={{ __html: article.content }} />
-    </div>
-  );
-}
+// di dalam komponen JSX
+<div>
+  {renderRichText(yourContent)}
+</div>
