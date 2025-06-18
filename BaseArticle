@@ -1,10 +1,1 @@
-const renderRichText = (text) => {
-  return text
-    .split('\n\n')
-    .map((para, idx) => <p key={idx}>{para}</p>);
-};
-
-// di dalam komponen JSX
-<div>
-  {renderRichText(yourContent)}
-</div>
+https://tugas-mkts-juni2025.pages.dev/news
