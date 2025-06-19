@@ -1,2 +1,3 @@
-https://tugas-mkts-juni2025.pages.dev/news
-https://github.com/rahadian2007/TUGAS_MKTS_JUNI
+
+./sdkmanager --sdk_root=$HOME/Android/sdk "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+
