@@ -1,1 +1,41 @@
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# ~/.bashrc default Linux Mint
+
+# Source global definitions
+if [ -f /etc/bash.bashrc ]; then
+    . /etc/bash.bashrc
+fi
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# User specific aliases and functions
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ]; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# Set PATH so it includes user's private local bin if it exists
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+# ===== Tambahan opsional untuk Flutter & Android SDK =====
+
+# Flutter
+export PATH="$PATH:$HOME/flutter/bin"
+
+# Android SDK (ganti sesuai lokasi SDK kamu)
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/emulator"
+export PATH="$PATH:$ANDROID_HOME/tools"
+export PATH="$PATH:$ANDROID_HOME/tools/bin"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+
+# =========================================================
