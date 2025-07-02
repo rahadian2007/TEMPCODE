@@ -1,16 +1,1 @@
-
-local titSound = audio.loadSound("tit.wav")
-
-local interval = 250
-local lastTime = system.getTimer()
-
-local function metronomeListener()
-    local now = system.getTimer()
-    
-    if now - lastTime >= interval then
-        audio.play(titSound, { channel = 1 }) 
-        lastTime = lastTime + interval         
-    end
-end
-
-Runtime:addEventListener("enterFrame", metronomeListener)
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
