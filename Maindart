@@ -1,7 +1,7 @@
 //   lib/main.dart
 
 import 'package:flutter/material.dart';
-import 'notespages.dart'; // pastikan file ini ada di lib/
+import 'pages/notespages.dart';
 
 void main() {
   runApp(MyApp());
