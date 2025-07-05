@@ -1,18 +1,74 @@
 //   lib/pages/notes_page.dart
 
-
 import 'package:flutter/material.dart';
 
-class NotesPages extends StatelessWidget {
+class NotesPages extends StatefulWidget {
+  @override
+  _NotesPagesState createState() => _NotesPagesState();
+}
+
+class _NotesPagesState extends State<NotesPages> {
+  List<String> notes = [];
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose(); // Penting untuk menghindari memory leak
+    super.dispose();
+  }
+
+  void _addNote() {
+    final text = _controller.text.trim();
+    if (text.isNotEmpty) {
+      setState(() {
+        notes.add(text);
+        _controller.clear(); // Kosongkan TextField
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Catatan Saya'),
       ),
-      body: Center(
-        child: Text('Selamat datang di halaman catatan!'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // TextField untuk input catatan
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                labelText: 'Tulis catatan...',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            // Tombol Tambah
+            ElevatedButton(
+              onPressed: _addNote,
+              child: Text('Tambah'),
+            ),
+            SizedBox(height: 20),
+            // ListView untuk menampilkan catatan
+            Expanded(
+              child: ListView.builder(
+                itemCount: notes.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Icon(Icons.note),
+                    title: Text(notes[index]),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+
