@@ -1,36 +1,18 @@
-// notes_page.dart
+//   lib/pages/notes_page.dart
+
 
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My Notes',
-      home: MyNotesPage(),
-    );
-  }
-}
-
-class MyNotesPage extends StatefulWidget {
-  @override
-  _MyNotesPageState createState() => _MyNotesPageState();
-}
-
-class _MyNotesPageState extends State<MyNotesPage> {
+class NotesPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Notes'),
+        title: Text('Catatan Saya'),
       ),
-      body: Container(), // Body kosong
+      body: Center(
+        child: Text('Selamat datang di halaman catatan!'),
+      ),
     );
   }
 }
-
-
