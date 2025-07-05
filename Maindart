@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: NotesPages(), // pastikan ini adalah class yang ada di notespages.dart
+      home: NotesPages(), // pastikan ini adalah class yang ada di notes_page.dart
     );
   }
 }
