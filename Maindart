@@ -1,0 +1,21 @@
+//   lib/main.dart
+
+import 'package:flutter/material.dart';
+import 'notespages.dart'; // pastikan file ini ada di lib/
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Catatan Saya',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: NotesPages(), // pastikan ini adalah class yang ada di notespages.dart
+    );
+  }
+}
