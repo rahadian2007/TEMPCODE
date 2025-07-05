@@ -1,7 +1,7 @@
 //   lib/main.dart
 
 import 'package:flutter/material.dart';
-import 'pages/notespages.dart';
+import 'pages/notes_pages.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: NotesPages(), // pastikan ini adalah class yang ada di notes_page.dart
+      home: NotesPages(),
     );
   }
 }
