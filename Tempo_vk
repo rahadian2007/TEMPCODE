@@ -1,0 +1,85 @@
+// tempo 1,2,3,4 for virtual keyboard
+
+import 'dart:async';
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: NumberLoop());
+  }
+}
+
+class NumberLoop extends StatefulWidget {
+  @override
+  _NumberLoopState createState() => _NumberLoopState();
+}
+
+class _NumberLoopState extends State<NumberLoop> {
+  int _index = 0;
+  final List<int> _numbers = [1, 2, 3, 4];
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startLoop();
+  }
+
+  void _startLoop() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _index = (_index + 1) % _numbers.length;
+      });
+    });
+  }
+
+  String _getTextForNumber(int number) {
+    switch (number) {
+      case 1:
+        return 'satu';
+      case 2:
+        return 'dua';
+      case 3:
+        return 'tiga';
+      case 4:
+        return 'empat';
+      default:
+        return '';
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    int currentNumber = _numbers[_index];
+    String currentText = _getTextForNumber(currentNumber);
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Looping Angka dan Teks')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$currentNumber',
+              style: TextStyle(fontSize: 80),
+            ),
+            SizedBox(height: 20),
+            Text(
+              currentText,
+              style: TextStyle(fontSize: 40),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
