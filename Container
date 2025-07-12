@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Contoh TextField & Button',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Contoh Form'),
+        ),
+        body: Center(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Masukkan nama',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    // Aksi ketika tombol ditekan
+                    print('Tombol ditekan!');
+                  },
+                  child: Text('Kirim'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
