@@ -13,7 +13,7 @@ class _NotesPagesState extends State<NotesPages> {
 
   @override
   void dispose() {
-    _controller.dispose(); // Penting untuk menghindari memory leak
+    _controller.dispose();
     super.dispose();
   }
 
@@ -41,7 +41,6 @@ class _NotesPagesState extends State<NotesPages> {
             TextField(
               controller: _controller,
               decoration: InputDecoration(
-                labelText: 'Tulis catatan...',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -52,7 +51,7 @@ class _NotesPagesState extends State<NotesPages> {
               child: Text('Tambah'),
             ),
             SizedBox(height: 20),
-            // ListView untuk menampilkan catatan
+            // ListView 
             Expanded(
               child: ListView.builder(
                 itemCount: notes.length,
