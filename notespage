@@ -12,12 +12,12 @@ class _NotesPagesState extends State<NotesPages> {
   TextEditingController _controller = TextEditingController();
 
   @override
-  void dispose() {
+  void dispose() {  //fungsi
     _controller.dispose();
     super.dispose();
   }
 
-  void _addNote() {
+  void _addNote() { //fungsi
     final text = _controller.text.trim();
     if (text.isNotEmpty) {
       setState(() {
@@ -27,6 +27,8 @@ class _NotesPagesState extends State<NotesPages> {
     }
   }
 
+
+  //awal tampilan 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +40,8 @@ class _NotesPagesState extends State<NotesPages> {
         child: Column(
           children: [
             // TextField untuk input catatan
-            TextField(
+            // memanggil fungsi yang sudah ada
+              TextField(
               controller: _controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
