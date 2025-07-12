@@ -1,4 +1,4 @@
- //   lib/pages/notes_page.dart
+// lib/pages/notes_page.dart
 
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class _NotesPagesState extends State<NotesPages> {
 
   @override
   void dispose() {
-    _controller.dispose(); // Penting untuk menghindari memory leak
+    _controller.dispose(); // Hindari memory leak
     super.dispose();
   }
 
@@ -22,7 +22,7 @@ class _NotesPagesState extends State<NotesPages> {
     if (text.isNotEmpty) {
       setState(() {
         notes.add(text);
-        _controller.clear(); // Kosongkan TextField
+        _controller.clear();
       });
     }
   }
@@ -33,55 +33,56 @@ class _NotesPagesState extends State<NotesPages> {
       appBar: AppBar(
         title: Text('My Notes'),
       ),
- 
       body: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.all(16),
-          decoration: BoxDecoration(
+        padding: EdgeInsets.all(20),
+        margin: EdgeInsets.all(16),
+        decoration: BoxDecoration(
           color: Colors.red[200],
           borderRadius: BorderRadius.circular(12),
         ),
-
         child: Column(
-           children: [
-
+          children: [
             // TextField untuk input catatan
-             TextField(
+            TextField(
               controller: _controller,
               decoration: InputDecoration(
                 labelText: 'Tulis catatan...',
-                filled: true, 
-                fillColor: Colors.red[100], 
+                filled: true,
+                fillColor: Colors.red[100],
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100.0),
+                  borderRadius: BorderRadius.circular(100.0),
                 ),
               ),
-            
             ),
-             SizedBox(height: 20),
-            // Tombol Tambah, height => // jarak antara tombol tambah dengan kotak input
-            
-              ElevatedButton(
-                onPressed: _addNote,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red[100],        // Warna latar tombol
-                  foregroundColor: Colors.black,      // Warna teks tombol
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0), // Sudut membulat
-                  ),
+            SizedBox(height: 20),
+            // Tombol tambah catatan
+            ElevatedButton(
+              onPressed: _addNote,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red[100],
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
-                child: Text('Tambah'),
               ),
-
-            SizedBox(height: 20), // jarak antara isi text dengan tombol tambah 
-            // ListView untuk menampilkan catatan
+              child: Text('Tambah'),
+            ),
+            SizedBox(height: 20),
+            // ListView untuk menampilkan catatan dalam bentuk Card
             Expanded(
               child: ListView.builder(
-                 itemCount: notes.length,
+                itemCount: notes.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Icon(Icons.note),
-                    title: Text(notes[index]),
+                  return Card(
+                    elevation: 3,
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      leading: Icon(Icons.note, color: Colors.red[800]),
+                      title: Text(notes[index]),
+                    ),
                   );
                 },
               ),
@@ -91,4 +92,4 @@ class _NotesPagesState extends State<NotesPages> {
       ),
     );
   }
-} 
+}
