@@ -1,4 +1,4 @@
-//   lib/pages/notes_page.dart
+ //   lib/pages/notes_page.dart
 
 import 'package:flutter/material.dart';
 
@@ -33,29 +33,51 @@ class _NotesPagesState extends State<NotesPages> {
       appBar: AppBar(
         title: Text('My Notes'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+ 
+      body: Container(
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+          color: Colors.red[200],
+          borderRadius: BorderRadius.circular(12),
+        ),
+
         child: Column(
-          children: [
+           children: [
+
             // TextField untuk input catatan
-            TextField(
+             TextField(
               controller: _controller,
               decoration: InputDecoration(
                 labelText: 'Tulis catatan...',
-                border: OutlineInputBorder(),
+                filled: true, 
+                fillColor: Colors.red[100], 
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(100.0),
+                ),
               ),
+            
             ),
-            SizedBox(height: 10),
-            // Tombol Tambah
-            ElevatedButton(
-              onPressed: _addNote,
-              child: Text('Tambah'),
-            ),
-            SizedBox(height: 20),
+             SizedBox(height: 20),
+            // Tombol Tambah, height => // jarak antara tombol tambah dengan kotak input
+            
+              ElevatedButton(
+                onPressed: _addNote,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red[100],        // Warna latar tombol
+                  foregroundColor: Colors.black,      // Warna teks tombol
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0), // Sudut membulat
+                  ),
+                ),
+                child: Text('Tambah'),
+              ),
+
+            SizedBox(height: 20), // jarak antara isi text dengan tombol tambah 
             // ListView untuk menampilkan catatan
             Expanded(
               child: ListView.builder(
-                itemCount: notes.length,
+                 itemCount: notes.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: Icon(Icons.note),
@@ -69,4 +91,4 @@ class _NotesPagesState extends State<NotesPages> {
       ),
     );
   }
-}
+} 
