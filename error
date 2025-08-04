@@ -1,26 +1,56 @@
-rror Failed to install the app. Make sure you have the Android development environment set up: https://reactnative.dev/docs/environment-setup.
-Error: Command failed: ./gradlew app:installDebug -PreactNativeDevServerPort=8081
+// File: android/app/build.gradle
 
-FAILURE: Build failed with an exception.
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
-* Where:
-Build file '/home/rahadian/proyek_alhaq/pos-module/android/build.gradle' line: 21
+android {
+    namespace "com.namapaketmu" // Ganti sesuai nama paket kamu
+    compileSdk 33
 
-* What went wrong:
-A problem occurred evaluating root project 'pos'.
-> Plugin with id 'kotlin-android' not found.
+    defaultConfig {
+        applicationId "com.namapaketmu" // Ganti sesuai ID aplikasi kamu
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
 
-* Try:
-> Run with --stacktrace option to get the stack trace.
-> Run with --info or --debug option to get more log output.
-> Run with --scan to get full insights.
-> Get more help at https://help.gradle.org.
+        // Untuk React Native
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
 
-BUILD FAILED in 5s
+    buildTypes {
+        release {
+            // React Native release config
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 
-    at makeError (/home/rahadian/proyek_alhaq/pos-module/node_modules/execa/index.js:174:9)
-    at /home/rahadian/proyek_alhaq/pos-module/node_modules/execa/index.js:278:16
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async runOnAllDevices (/home/rahadian/proyek_alhaq/pos-module/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js:82:7)
-    at async Command.handleAction (/home/rahadian/proyek_alhaq/pos-module/node_modules/@react-native-community/cli/build/index.js:108:9)
-info Run CLI with --verbose flag for more details.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    packagingOptions {
+        resources {
+            excludes += ['/META-INF/{AL2.0,LGPL2.1}']
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
+    implementation 'androidx.core:core-ktx:1.12.0'
+
+    // React Native (otomatis terdeteksi via autolinking)
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+}
