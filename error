@@ -1,0 +1,26 @@
+rror Failed to install the app. Make sure you have the Android development environment set up: https://reactnative.dev/docs/environment-setup.
+Error: Command failed: ./gradlew app:installDebug -PreactNativeDevServerPort=8081
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/home/rahadian/proyek_alhaq/pos-module/android/build.gradle' line: 21
+
+* What went wrong:
+A problem occurred evaluating root project 'pos'.
+> Plugin with id 'kotlin-android' not found.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 5s
+
+    at makeError (/home/rahadian/proyek_alhaq/pos-module/node_modules/execa/index.js:174:9)
+    at /home/rahadian/proyek_alhaq/pos-module/node_modules/execa/index.js:278:16
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async runOnAllDevices (/home/rahadian/proyek_alhaq/pos-module/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js:82:7)
+    at async Command.handleAction (/home/rahadian/proyek_alhaq/pos-module/node_modules/@react-native-community/cli/build/index.js:108:9)
+info Run CLI with --verbose flag for more details.
