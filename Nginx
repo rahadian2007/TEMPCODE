@@ -1,33 +1,32 @@
 server {
     listen 80;
-    server_name yourdomain.com www.yourdomain.com;
+    server_name yourdomain.com;   # Bisa diganti dengan IP server atau domain
 
     root /var/www/laravelprojek/public;
     index index.php index.html index.htm;
 
-    # Laravel routing
+    # Laravel front controller
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-    # PHP-FPM
+    # PHP-FPM handler
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;  # sesuaikan versi PHP-FPM
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;   # Sesuaikan versi PHP-FPM
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
     }
 
-    # Deny .htaccess dan file tersembunyi
+    # Deny access to hidden files
     location ~ /\. {
         deny all;
         access_log off;
         log_not_found off;
     }
 
-    # Security headers (opsional tapi disarankan)
-    add_header X-Frame-Options "SAMEORIGIN" always;
-    add_header X-Content-Type-Options "nosniff" always;
-    add_header X-XSS-Protection "1; mode=block" always;
+    # Optional: Gzip compression (tingkatkan performa)
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_min_length 256;
 }
-`
