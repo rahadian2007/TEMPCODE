@@ -1,29 +1,90 @@
-namespace App\Http\Controllers;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Kasir</title>
+    <!-- React & ReactDOM via CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body { font-family: Arial; padding: 50px; }
+        input { margin: 5px 0; padding: 8px; width: 200px; }
+        button { padding: 8px 15px; }
+        .message { margin-top: 10px; color: red; }
+    </style>
+</head>
+<body>
+<div id="root"></div>
 
-use Illuminate\Http\Request;
-use App\Models\Kasir;
-use Illuminate\Support\Facades\Hash;
+<script type="text/babel">
+const { useState } = React;
 
-class AuthController extends Controller
-{
-    public function login(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'password' => 'required'
-        ]);
+function LoginForm() {
+    const [nama, setNama] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [token, setToken] = useState('');
 
-        $kasir = Kasir::where('nama', $request->nama)->first();
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setMessage('');
 
-        if (!$kasir || !Hash::check($request->password, $kasir->password)) {
-            return response()->json(['message' => 'Nama atau password salah'], 401);
+        try {
+            const response = await fetch('http://139.59.224.22/api/kasir/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nama, password }),
+                credentials: 'include' // penting kalau pakai Sanctum SPA cookie
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setToken(data.access_token);
+                setMessage('Login sukses! Token disimpan.');
+                console.log('Token:', data.access_token);
+            } else {
+                setMessage(data.message || 'Login gagal');
+            }
+        } catch (error) {
+            setMessage('Error: ' + error.message);
         }
+    };
 
-        $token = $kasir->createToken('kasir-token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
-    }
+    return (
+        <div>
+            <h2>Login Kasir</h2>
+            <form onSubmit={handleLogin}>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="Nama"
+                        value={nama}
+                        onChange={e => setNama(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            {message && <div className="message">{message}</div>}
+            {token && <div><strong>Token:</strong> {token}</div>}
+        </div>
+    );
 }
+
+ReactDOM.createRoot(document.getElementById('root')).render(<LoginForm />);
+</script>
+</body>
+</html>
