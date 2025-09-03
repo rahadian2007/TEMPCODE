@@ -1,0 +1,29 @@
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Kasir;
+use Illuminate\Support\Facades\Hash;
+
+class AuthController extends Controller
+{
+    public function login(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'password' => 'required'
+        ]);
+
+        $kasir = Kasir::where('nama', $request->nama)->first();
+
+        if (!$kasir || !Hash::check($request->password, $kasir->password)) {
+            return response()->json(['message' => 'Nama atau password salah'], 401);
+        }
+
+        $token = $kasir->createToken('kasir-token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+}
